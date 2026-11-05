@@ -1,0 +1,93 @@
+import React, { useState } from 'react';
+
+export default function KmToMilesConverter() {
+  const [km, setKm] = useState('');
+
+  // 1 km = 0.621 miles
+  const miles = km !== '' && !isNaN(km) ? (parseFloat(km) * 0.621).toFixed(3) : '';
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    // Allow only numbers and a single decimal point
+    if (value === '' || /^\d*\.?\d*$/.test(value)) {
+      setKm(value);
+    }
+  };
+
+  return (
+    <div style={styles.card}>
+      <h2 style={styles.heading}>Kilometers to Miles Converter</h2>
+
+      <div style={styles.inputGroup}>
+        <label htmlFor="km-input" style={styles.label}>
+          Kilometers (km):
+        </label>
+        <input
+          id="km-input"
+          type="text"
+          value={km}
+          onChange={handleChange}
+          placeholder="Enter distance in km"
+          style={styles.input}
+        />
+      </div>
+
+      <div style={styles.resultGroup}>
+        <span style={styles.label}>Miles (mi):</span>
+        <div style={styles.resultValue}>
+          {miles !== '' ? `${miles} mi` : '0 mi'}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  card: {
+    maxWidth: '360px',
+    margin: '40px auto',
+    padding: '24px',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+    backgroundColor: '#ffffff',
+    color: '#333333',
+  },
+  heading: {
+    marginTop: 0,
+    marginBottom: '20px',
+    fontSize: '20px',
+    textAlign: 'center',
+  },
+  inputGroup: {
+    marginBottom: '16px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  },
+  label: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#555555',
+  },
+  input: {
+    padding: '10px 12px',
+    fontSize: '16px',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    outline: 'none',
+  },
+  resultGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+    marginTop: '12px',
+    paddingTop: '12px',
+    borderTop: '1px solid #eee',
+  },
+  resultValue: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    color: '#2563eb',
+  },
+};
